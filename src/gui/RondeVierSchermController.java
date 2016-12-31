@@ -17,6 +17,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -25,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
 /**
@@ -277,6 +279,11 @@ public class RondeVierSchermController extends GridPane
     @FXML
     private void volgendeRonde(ActionEvent event)
     {
+        Stage stage = new Stage();
+        Scene scene = new Scene(new FinaleSchermController(dc));
+        stage.setScene(scene);
+        stage.setTitle("FINALE!");
+        stage.show();
     }
 
     @FXML
