@@ -15,15 +15,7 @@ import javafx.stage.Stage;
  *
  * @author Dylan
  */
-/**
- * TODO OBSERVER PATTERN IN:
- *      Ronde 1?
- *      Ronde 2
- *      Ronde 4
- * TODO DISABLE PLAYERS WHEN ALREADY CHOSEN IN;
- *      OVERAL
- * @author Dylan
- */
+
 public class StartUP extends Application
 {
     

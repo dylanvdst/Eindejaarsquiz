@@ -172,6 +172,7 @@ public class RondeDrieSchermController extends GridPane implements Observer
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
+        btnBieke.setDisable(true);
         this.speler = bieke;
     }
 
@@ -182,6 +183,7 @@ public class RondeDrieSchermController extends GridPane implements Observer
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
+        btnBrian.setDisable(true);
         this.speler = brian;
     }
 
@@ -192,6 +194,7 @@ public class RondeDrieSchermController extends GridPane implements Observer
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
+        btnMarianne.setDisable(true);
         this.speler = marianne;
     }
 
@@ -202,6 +205,7 @@ public class RondeDrieSchermController extends GridPane implements Observer
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
+        btnRobin.setDisable(true);
         this.speler = robin;
     }
 
@@ -257,21 +261,25 @@ public class RondeDrieSchermController extends GridPane implements Observer
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
     }
 
@@ -289,21 +297,25 @@ public class RondeDrieSchermController extends GridPane implements Observer
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
     }
 
@@ -321,21 +333,25 @@ public class RondeDrieSchermController extends GridPane implements Observer
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
+        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t)
+                -> 
+                {
+                    t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
         });
     }
 
@@ -352,7 +368,7 @@ public class RondeDrieSchermController extends GridPane implements Observer
             {
                 puzzelId = 3;
                 puzzel = p3;
-                
+
             } else if (puzzelId == 3)
             {
                 puzzelId = 4;
@@ -379,15 +395,20 @@ public class RondeDrieSchermController extends GridPane implements Observer
             txtA2.setVisible(false);
             txtA3.setText(antwoorden.get(2));
             txtA3.setVisible(false);
-            txtLijst.stream().forEach((t) ->
-            {
-                t.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
+            txtLijst.stream().forEach((t)
+                    -> 
+                    {
+                        t.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
             });
             btnStop.setDisable(true);
             btnStart.setDisable(false);
             btnA1.setDisable(false);
             btnA2.setDisable(false);
             btnA3.setDisable(false);
+            btnBieke.setDisable(false);
+            btnBrian.setDisable(false);
+            btnRobin.setDisable(false);
+            btnMarianne.setDisable(false);
         }
 
     }
@@ -428,15 +449,12 @@ public class RondeDrieSchermController extends GridPane implements Observer
     @Override
     public void update(int score)
     {
-        
-            txtBiekeScore.setText(Integer.toString(bieke.getScore()));
-       
-            txtBrianScore.setText(Integer.toString(brian.getScore()));
-        
-            txtMarianneScore.setText(Integer.toString(marianne.getScore()));
-        
-            txtRobinScore.setText(Integer.toString(robin.getScore()));
-        
+
+        txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+        txtBrianScore.setText(Integer.toString(brian.getScore()));
+        txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+        txtRobinScore.setText(Integer.toString(robin.getScore()));
+
     }
 
 }

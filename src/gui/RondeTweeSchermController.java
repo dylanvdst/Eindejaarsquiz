@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Observer;
 import domein.Speler;
 import domein.Vraag;
 import java.io.IOException;
@@ -27,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author Dylan
  */
-public class RondeTweeSchermController extends GridPane
+public class RondeTweeSchermController extends GridPane implements Observer
 {
 
     @FXML
@@ -82,6 +83,10 @@ public class RondeTweeSchermController extends GridPane
     private Button btnStop;
     private DomeinController dc;
     private Speler speler;
+    private Speler bieke;
+    private Speler brian;
+    private Speler marianne;
+    private Speler robin;
     private List<Vraag> vragen;
     private int vraagNr;
     private Vraag vraag;
@@ -103,19 +108,24 @@ public class RondeTweeSchermController extends GridPane
         try
         {
             loader.load();
-            txtBieke.setText(dc.getSpeler("Bieke").getName());
-            txtBrian.setText(dc.getSpeler("Brian").getName());
-            txtMarianne.setText(dc.getSpeler("Marianne").getName());
-            txtRobin.setText(dc.getSpeler("Robin").getName());
-            txtBiekeScore.setText(Integer.toString(dc.getSpeler("Bieke").getScore()));
-            txtBrianScore.setText(Integer.toString(dc.getSpeler("Brian").getScore()));
-            txtMarianneScore.setText(Integer.toString(dc.getSpeler("Marianne").getScore()));
-            txtRobinScore.setText(Integer.toString(dc.getSpeler("Robin").getScore()));
+            bieke = dc.getSpeler("Bieke");
+            brian = dc.getSpeler("Brian");
+            marianne = dc.getSpeler("Marianne");
+            robin = dc.getSpeler("Robin");
+            txtBieke.setText(bieke.getName());
+            txtBrian.setText(brian.getName());
+            txtMarianne.setText(marianne.getName());
+            txtRobin.setText(robin.getName());
+            txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+            txtBrianScore.setText(Integer.toString(brian.getScore()));
+            txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+            txtRobinScore.setText(Integer.toString(robin.getScore()));
             btnStop.setDisable(true);
         } catch (IOException ex)
         {
             throw new RuntimeException(ex);
         }
+        this.dc.addObserver(this);
     }
 
     @FXML
@@ -125,7 +135,8 @@ public class RondeTweeSchermController extends GridPane
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Bieke");
+        btnBieke.setDisable(true);
+        this.speler = bieke;
 
     }
 
@@ -136,7 +147,8 @@ public class RondeTweeSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Brian");
+        btnBrian.setDisable(true);
+        this.speler = brian;
     }
 
     @FXML
@@ -146,7 +158,8 @@ public class RondeTweeSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Marianne");
+        btnMarianne.setDisable(true);
+        this.speler = marianne;
     }
 
     @FXML
@@ -156,7 +169,8 @@ public class RondeTweeSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Robin");
+        btnRobin.setDisable(true);
+        this.speler = robin;
     }
 
     @FXML
@@ -225,6 +239,10 @@ public class RondeTweeSchermController extends GridPane
             btnA2.setDisable(false);
             btnA3.setDisable(false);
             btnA4.setDisable(false);
+            btnBieke.setDisable(false);
+            btnBrian.setDisable(false);
+            btnRobin.setDisable(false);
+            btnMarianne.setDisable(false);
         } else if (vraagNr >= vragen.size())
         {
             btnVolgendeVraag.setDisable(true);
@@ -247,20 +265,6 @@ public class RondeTweeSchermController extends GridPane
         btnStart.setDisable(true);
         btnStop.setDisable(false);
         speler.timer();
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
-
     }
 
     @FXML
@@ -269,38 +273,12 @@ public class RondeTweeSchermController extends GridPane
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         speler.stopTimer();
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
     }
 
     public void goedGeantwoord()
     {
         speler.stopTimer();
         this.speler.setScore(this.speler.getScore() + 20);
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
         speler.timer();
     }
 
@@ -327,6 +305,15 @@ public class RondeTweeSchermController extends GridPane
         txtAntwoord4.setText(vraag.getAntwoord().get(3));
         txtAntwoord4.setVisible(false);
         btnToonEerste.setDisable(true);
+    }
+
+    @Override
+    public void update(int score)
+    {
+        txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+        txtBrianScore.setText(Integer.toString(brian.getScore()));
+        txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+        txtRobinScore.setText(Integer.toString(robin.getScore()));
     }
 
 }

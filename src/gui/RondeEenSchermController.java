@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Observer;
 import domein.Speler;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
  *
  * @author Dylan
  */
-public class RondeEenSchermController extends GridPane
+public class RondeEenSchermController extends GridPane implements Observer
 {
 
     @FXML
@@ -56,15 +57,19 @@ public class RondeEenSchermController extends GridPane
     @FXML
     private TextArea txtRobinScore;
     
-    private DomeinController domeinController;
+    private DomeinController dc;
     private Speler speler;
+    private Speler bieke;
+    private Speler brian;
+    private Speler marianne;
+    private Speler robin;
 
     /**
      * Initializes the controller class.
      */
     public RondeEenSchermController(DomeinController dc)
     {
-        this.domeinController = dc;
+        this.dc = dc;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RondeEenScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -72,19 +77,24 @@ public class RondeEenSchermController extends GridPane
         try
         {
             loader.load();
-            txtBieke.setText(dc.getSpeler("Bieke").getName());
-            txtBrian.setText(dc.getSpeler("Brian").getName());
-            txtMarianne.setText(dc.getSpeler("Marianne").getName());
-            txtRobin.setText(dc.getSpeler("Robin").getName());
-            txtBiekeScore.setText(Integer.toString(dc.getSpeler("Bieke").getScore()));
-            txtBrianScore.setText(Integer.toString(dc.getSpeler("Brian").getScore()));
-            txtMarianneScore.setText(Integer.toString(dc.getSpeler("Marianne").getScore()));
-            txtRobinScore.setText(Integer.toString(dc.getSpeler("Robin").getScore()));
+            bieke = dc.getSpeler("Bieke");
+            brian = dc.getSpeler("Brian");
+            marianne = dc.getSpeler("Marianne");
+            robin = dc.getSpeler("Robin");
+            txtBieke.setText(bieke.getName());
+            txtBrian.setText(brian.getName());
+            txtMarianne.setText(marianne.getName());
+            txtRobin.setText(robin.getName());
+            txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+            txtBrianScore.setText(Integer.toString(brian.getScore()));
+            txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+            txtRobinScore.setText(Integer.toString(robin.getScore()));
         }
         catch(IOException ex)
         {
             throw new RuntimeException(ex);
         }
+        this.dc.addObserver(this);
     }
 
     @FXML
@@ -94,7 +104,7 @@ public class RondeEenSchermController extends GridPane
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.domeinController.getSpeler("Bieke");
+        this.speler = bieke;
     }
 
     @FXML
@@ -104,7 +114,7 @@ public class RondeEenSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.domeinController.getSpeler("Brian");
+        this.speler = brian;
     }
 
     @FXML
@@ -114,7 +124,7 @@ public class RondeEenSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.domeinController.getSpeler("Marianne");
+        this.speler = marianne;
     }
 
     @FXML
@@ -124,31 +134,32 @@ public class RondeEenSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.domeinController.getSpeler("Robin");
+        this.speler = robin;
     }
 
     @FXML
     private void goedGeantwoord(ActionEvent event)
     {
         speler.setScore(speler.getScore() + 5);
-        if(speler.getName().equals("Bieke"))
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        else if(speler.getName().equals("Brian"))
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        else if(speler.getName().equals("Marianne"))
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        else if(speler.getName().equals("Robin"))
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
     }
 
     @FXML
     private void volgendeRonde(ActionEvent event)
     {
         Stage stage = new Stage();
-        Scene scene = new Scene(new RondeTweeSchermController(domeinController));
+        Scene scene = new Scene(new RondeTweeSchermController(dc));
         stage.setScene(scene);
         stage.setTitle("Open Deur");
         stage.show();
+    }
+
+    @Override
+    public void update(int score)
+    {
+        txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+        txtBrianScore.setText(Integer.toString(brian.getScore()));
+        txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+        txtRobinScore.setText(Integer.toString(robin.getScore()));
     }
     
 }

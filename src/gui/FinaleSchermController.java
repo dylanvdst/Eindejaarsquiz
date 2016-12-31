@@ -210,31 +210,43 @@ public class FinaleSchermController extends GridPane implements Observer
         btnStartTimer.setDisable(false);
         btnStopTimer.setDisable(true);
         spelendeSpeler.stopTimer();
-        if (spelendeSpeler.equals(speler1))
-        {
-            txtSpeler1Score.setText(Integer.toString(speler1.getScore()));
-        } else if (spelendeSpeler.equals(speler2))
-        {
-            txtSpeler2Score.setText(Integer.toString(speler2.getScore()));
-        }
     }
 
     @FXML
     private void volgendeVraag(ActionEvent event)
     {
+        vraagNr++;
+        if (vraagNr < vragen.size())
+        {
+            vraag = vragen.get(vraagNr);
+            txtVraag.setText(vraag.getText());
+            txtA1.setText(vraag.getAntwoord().get(0));
+            txtA1.setVisible(false);
+            txtA2.setText(vraag.getAntwoord().get(1));
+            txtA2.setVisible(false);
+            txtA3.setText(vraag.getAntwoord().get(2));
+            txtA3.setVisible(false);
+            txtA4.setText(vraag.getAntwoord().get(3));
+            txtA4.setVisible(false);
+            txtA5.setText(vraag.getAntwoord().get(4));
+            txtA5.setVisible(false);
+            btnStopTimer.setDisable(true);
+            btnStartTimer.setDisable(false);
+            btnA1.setDisable(false);
+            btnA2.setDisable(false);
+            btnA3.setDisable(false);
+            btnA4.setDisable(false);
+            btnA5.setDisable(false);
+        } else if (vraagNr >= vragen.size())
+        {
+            btnVolgendeVraag.setDisable(true);
+        }
     }
 
     private void goedGeantwoord()
     {
         spelendeSpeler.stopTimer();
         this.kijkendeSpeler.setScore(this.kijkendeSpeler.getScore() - 20);
-        if (spelendeSpeler.equals(speler1))
-        {
-            txtSpeler1Score.setText(Integer.toString(speler1.getScore()));
-        } else if (spelendeSpeler.equals(speler2))
-        {
-            txtSpeler2Score.setText(Integer.toString(speler2.getScore()));
-        }
         spelendeSpeler.timer();
     }
 
