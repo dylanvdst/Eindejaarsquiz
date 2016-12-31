@@ -21,6 +21,7 @@ public class DomeinController
     private Speler brian;
     private Speler robin;
     private List<Vraag> vragenRonde2;
+    private List<Vraag> vragenRonde4;
     
     public void maakSpelers()
     {
@@ -34,6 +35,12 @@ public class DomeinController
     {
         maakVragenRonde2();
         return vragenRonde2;
+    }
+    
+    public List<Vraag> getVragenRonde4()
+    {
+        maakVragenRonde4();
+        return vragenRonde4;
     }
     
     public ArrayList<Speler> getSpelers()
@@ -178,6 +185,39 @@ public class DomeinController
         stukjes.add("Modaal");
         stukjes.add("Zonder Vrees");
         return new Puzzel(antwoorden, stukjes);
+    }
+    
+    public void maakVragenRonde4()
+    {
+        vragenRonde4 = new ArrayList<>();
+        List<String> antwoorden1 = new ArrayList<>();
+        antwoorden1.add("Geert Bourgois");
+        antwoorden1.add("NVA");
+        antwoorden1.add("Minister-President");
+        antwoorden1.add("Vlaanderen");
+        Vraag vraag1 = new Vraag("C:\\Users\\Dylan\\Documents\\NetBeansProjects\\Quiz\\src\\assets\\1.jpg", antwoorden1);
+        List<String> antwoorden2 = new ArrayList<>();
+        antwoorden2.add("Vrijheidsbeeld");
+        antwoorden2.add("New York");
+        antwoorden2.add("Frankrijk");
+        antwoorden2.add("1886");
+        Vraag vraag2 = new Vraag("C:\\Users\\Dylan\\Documents\\NetBeansProjects\\Quiz\\src\\assets\\2.jpg", antwoorden2);
+        List<String> antwoorden3 = new ArrayList<>();
+        antwoorden3.add("Nafissatou Thiam");
+        antwoorden3.add("Meerkamp");
+        antwoorden3.add("Olympische Spelen");
+        antwoorden3.add("Goud");
+        Vraag vraag3 = new Vraag("C:\\Users\\Dylan\\Documents\\NetBeansProjects\\Quiz\\src\\assets\\3.jpg", antwoorden3);
+        List<String> antwoorden4 = new ArrayList<>();
+        antwoorden4.add("Mathieu Terryn");
+        antwoorden4.add("Bazart");
+        antwoorden4.add("Goud");
+        antwoorden4.add("Chaos");
+        Vraag vraag4 = new Vraag("C:\\Users\\Dylan\\Documents\\NetBeansProjects\\Quiz\\src\\assets\\4.jpg", antwoorden4);
+        this.vragenRonde4.add(vraag1);
+        this.vragenRonde4.add(vraag2);
+        this.vragenRonde4.add(vraag3);
+        this.vragenRonde4.add(vraag4);
     }
     
 }

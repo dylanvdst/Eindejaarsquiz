@@ -6,29 +6,36 @@
 package gui;
 
 import domein.DomeinController;
-import domein.Puzzel;
 import domein.Speler;
+import domein.Vraag;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
  *
  * @author Dylan
  */
-public class RondeDrieSchermController extends GridPane
+public class RondeVierSchermController extends GridPane
 {
 
     @FXML
@@ -60,11 +67,21 @@ public class RondeDrieSchermController extends GridPane
     @FXML
     private TextArea txtRobinScore;
     @FXML
+    private TextArea txtAntwoord1;
+    @FXML
+    private TextArea txtAntwoord3;
+    @FXML
+    private TextArea txtAntwoord4;
+    @FXML
+    private TextArea txtAntwoord2;
+    @FXML
     private Button btnA1;
     @FXML
     private Button btnA2;
     @FXML
     private Button btnA3;
+    @FXML
+    private Button btnA4;
     @FXML
     private Button btnVolgendeVraag;
     @FXML
@@ -74,56 +91,23 @@ public class RondeDrieSchermController extends GridPane
     @FXML
     private Button btnStop;
     @FXML
-    private TextArea txtS1;
-    @FXML
-    private TextArea txtS2;
-    @FXML
-    private TextArea txtS3;
-    @FXML
-    private TextArea txtS4;
-    @FXML
-    private TextArea txtS9;
-    @FXML
-    private TextArea txtS8;
-    @FXML
-    private TextArea txtS7;
-    @FXML
-    private TextArea txtS6;
-    @FXML
-    private TextArea txtS5;
-    @FXML
-    private TextArea txtS11;
-    @FXML
-    private TextArea txtS12;
-    @FXML
-    private TextArea txtS10;
-    @FXML
-    private TextArea txtA1;
-    @FXML
-    private TextArea txtA2;
-    @FXML
-    private TextArea txtA3;
+    private ImageView ivImageView;
     private DomeinController dc;
-    private Puzzel p1;
-    private Puzzel p2;
-    private Puzzel p3;
-    private Puzzel p4;
-    private int puzzelId;
-    private Puzzel puzzel;
     private Speler speler;
-    private List<TextArea> txtLijst = new ArrayList();
-    private boolean flag = true;
+    private List<Vraag> vragen;
+    private int vraagNr;
+    private Vraag vraag;
 
-    public RondeDrieSchermController(DomeinController dc)
+    public RondeVierSchermController(DomeinController dc)
     {
         this.dc = dc;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("RondeDrieScherm.fxml"));
+        vragen = dc.getVragenRonde4();
+        vraagNr = 0;
+        vraag = vragen.get(vraagNr);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RondeVierScherm.fxml"));
         loader.setRoot(this);
         loader.setController(this);
-        p1 = dc.puzzel1();
-        p2 = dc.puzzel2();
-        p3 = dc.puzzel3();
-        p4 = dc.puzzel4();
+
         try
         {
             loader.load();
@@ -136,19 +120,6 @@ public class RondeDrieSchermController extends GridPane
             txtMarianneScore.setText(Integer.toString(dc.getSpeler("Marianne").getScore()));
             txtRobinScore.setText(Integer.toString(dc.getSpeler("Robin").getScore()));
             btnStop.setDisable(true);
-            txtLijst.add(txtS1);
-            txtLijst.add(txtS2);
-            txtLijst.add(txtS3);
-            txtLijst.add(txtS4);
-            txtLijst.add(txtS5);
-            txtLijst.add(txtS6);
-            txtLijst.add(txtS7);
-            txtLijst.add(txtS8);
-            txtLijst.add(txtS9);
-            txtLijst.add(txtS10);
-            txtLijst.add(txtS11);
-            txtLijst.add(txtS12);
-
         } catch (IOException ex)
         {
             throw new RuntimeException(ex);
@@ -208,188 +179,107 @@ public class RondeDrieSchermController extends GridPane
     @FXML
     private void eersteRonde(ActionEvent event)
     {
-        puzzelId = 1;
-        puzzel = p1;
-        List<String> lijst = puzzel.getStukjesRandom();
-        List<String> antwoorden = puzzel.getAntwoorden();
-        txtS1.setText(lijst.get(0));
-        txtS2.setText(lijst.get(1));
-        txtS3.setText(lijst.get(2));
-        txtS4.setText(lijst.get(3));
-        txtS5.setText(lijst.get(4));
-        txtS6.setText(lijst.get(5));
-        txtS7.setText(lijst.get(6));
-        txtS8.setText(lijst.get(7));
-        txtS9.setText(lijst.get(8));
-        txtS10.setText(lijst.get(9));
-        txtS11.setText(lijst.get(10));
-        txtS12.setText(lijst.get(11));
-        txtA1.setText(antwoorden.get(0));
-        txtA1.setVisible(false);
-        txtA2.setText(antwoorden.get(1));
-        txtA2.setVisible(false);
-        txtA3.setText(antwoorden.get(2));
-        txtA3.setVisible(false);
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File(vraag.getText()));
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            ivImageView.setImage(image);
+        } catch (IOException ex) {
+            Logger.getLogger("FOUT");
+        }
+
+        ivImageView.setVisible(true);
+        txtAntwoord1.setText(vraag.getAntwoord().get(0));
+        txtAntwoord1.setVisible(false);
+        txtAntwoord2.setText(vraag.getAntwoord().get(1));
+        txtAntwoord2.setVisible(false);
+        txtAntwoord3.setText(vraag.getAntwoord().get(2));
+        txtAntwoord3.setVisible(false);
+        txtAntwoord4.setText(vraag.getAntwoord().get(3));
+        txtAntwoord4.setVisible(false);
         btnToonEerste.setDisable(true);
     }
 
     @FXML
     private void a1(ActionEvent event)
     {
-        txtA1.setVisible(true);
+        txtAntwoord1.setVisible(true);
         btnA1.setDisable(true);
-        List<String> stukjes = puzzel.getStukjesVoorEersteAntwoord();
-        String stuk1 = stukjes.get(0);
-        String stuk2 = stukjes.get(1);
-        String stuk3 = stukjes.get(2);
-        String stuk4 = stukjes.get(3);
         if (speler != null)
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
     }
 
     @FXML
     private void a2(ActionEvent event)
     {
-        txtA2.setVisible(true);
+        txtAntwoord2.setVisible(true);
         btnA2.setDisable(true);
-        List<String> stukjes = puzzel.getStukjesVoorTweedeAntwoord();
-        String stuk1 = stukjes.get(0);
-        String stuk2 = stukjes.get(1);
-        String stuk3 = stukjes.get(2);
-        String stuk4 = stukjes.get(3);
         if (speler != null)
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
     }
 
     @FXML
     private void a3(ActionEvent event)
     {
-        txtA3.setVisible(true);
+        txtAntwoord3.setVisible(true);
         btnA3.setDisable(true);
-        List<String> stukjes = puzzel.getStukjesVoorDerdeAntwoord();
-        String stuk1 = stukjes.get(0);
-        String stuk2 = stukjes.get(1);
-        String stuk3 = stukjes.get(2);
-        String stuk4 = stukjes.get(3);
         if (speler != null)
         {
             goedGeantwoord();
         }
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk1))).forEach((t) ->
+    }
+
+    @FXML
+    private void a4(ActionEvent event)
+    {
+        txtAntwoord4.setVisible(true);
+        btnA4.setDisable(true);
+        if (speler != null)
         {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk2))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk3))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
-        txtLijst.stream().filter((t) -> (t.getText().equals(stuk4))).forEach((t) ->
-        {
-            t.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, USE_PREF_SIZE));
-        });
+            goedGeantwoord();
+        }
     }
 
     @FXML
     private void volgendeVraag(ActionEvent event)
     {
-        if (flag)
+        vraagNr++;
+        if (vraagNr < vragen.size())
         {
-            if (puzzelId == 1)
-            {
-                puzzelId = 2;
-                puzzel = p2;
-            } else if (puzzelId == 2)
-            {
-                puzzelId = 3;
-                puzzel = p3;
-                
-            } else if (puzzelId == 3)
-            {
-                puzzelId = 4;
-                puzzel = p4;
-                flag = false;
+            vraag = vragen.get(vraagNr);
+            try {
+                BufferedImage bufferedImage = ImageIO.read(new File(vraag.getText()));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                ivImageView.setImage(image);
+            } catch (IOException ex) {
+                Logger.getLogger("FOUT");
             }
-            List<String> lijst = puzzel.getStukjesRandom();
-            List<String> antwoorden = puzzel.getAntwoorden();
-            txtS1.setText(lijst.get(0));
-            txtS2.setText(lijst.get(1));
-            txtS3.setText(lijst.get(2));
-            txtS4.setText(lijst.get(3));
-            txtS5.setText(lijst.get(4));
-            txtS6.setText(lijst.get(5));
-            txtS7.setText(lijst.get(6));
-            txtS8.setText(lijst.get(7));
-            txtS9.setText(lijst.get(8));
-            txtS10.setText(lijst.get(9));
-            txtS11.setText(lijst.get(10));
-            txtS12.setText(lijst.get(11));
-            txtA1.setText(antwoorden.get(0));
-            txtA1.setVisible(false);
-            txtA2.setText(antwoorden.get(1));
-            txtA2.setVisible(false);
-            txtA3.setText(antwoorden.get(2));
-            txtA3.setVisible(false);
-            txtLijst.stream().forEach((t) ->
-            {
-                t.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-            });
+            txtAntwoord1.setText(vraag.getAntwoord().get(0));
+            txtAntwoord1.setVisible(false);
+            txtAntwoord2.setText(vraag.getAntwoord().get(1));
+            txtAntwoord2.setVisible(false);
+            txtAntwoord3.setText(vraag.getAntwoord().get(2));
+            txtAntwoord3.setVisible(false);
+            txtAntwoord4.setText(vraag.getAntwoord().get(3));
+            txtAntwoord4.setVisible(false);
             btnStop.setDisable(true);
             btnStart.setDisable(false);
             btnA1.setDisable(false);
             btnA2.setDisable(false);
             btnA3.setDisable(false);
+            btnA4.setDisable(false);
+        } else if (vraagNr >= vragen.size())
+        {
+            btnVolgendeVraag.setDisable(true);
         }
-
     }
 
     @FXML
     private void volgendeRonde(ActionEvent event)
     {
-        Stage stage = new Stage();
-        Scene scene = new Scene(new RondeVierSchermController(dc));
-        stage.setScene(scene);
-        stage.setTitle("Foto Ronde");
-        stage.show();
     }
 
     @FXML
@@ -437,7 +327,7 @@ public class RondeDrieSchermController extends GridPane
     private void goedGeantwoord()
     {
         speler.stopTimer();
-        this.speler.setScore(this.speler.getScore() + 20);
+        this.speler.setScore(this.speler.getScore() + 10);
         if (speler.getName().equals("Bieke"))
         {
             txtBiekeScore.setText(Integer.toString(speler.getScore()));
@@ -453,5 +343,5 @@ public class RondeDrieSchermController extends GridPane
         }
         speler.timer();
     }
-
+    
 }
