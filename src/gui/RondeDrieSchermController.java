@@ -437,7 +437,7 @@ public class RondeDrieSchermController extends GridPane
     private void goedGeantwoord()
     {
         speler.stopTimer();
-        this.speler.setScore(this.speler.getScore() + 20);
+        this.speler.setScore(this.speler.getScore() + 25);
         if (speler.getName().equals("Bieke"))
         {
             txtBiekeScore.setText(Integer.toString(speler.getScore()));

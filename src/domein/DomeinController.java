@@ -169,7 +169,7 @@ public class DomeinController
     {
         List<String> antwoorden = new ArrayList<>();
         List<String> stukjes = new ArrayList<>();
-        antwoorden.add("Braadworst");
+        antwoorden.add("Onderbroek");
         antwoorden.add("Middenstand");
         antwoorden.add("Jan");
         stukjes.add("Boxershort");

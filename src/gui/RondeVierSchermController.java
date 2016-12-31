@@ -11,15 +11,12 @@ import domein.Vraag;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -327,7 +324,7 @@ public class RondeVierSchermController extends GridPane
     private void goedGeantwoord()
     {
         speler.stopTimer();
-        this.speler.setScore(this.speler.getScore() + 10);
+        this.speler.setScore(this.speler.getScore() + 20);
         if (speler.getName().equals("Bieke"))
         {
             txtBiekeScore.setText(Integer.toString(speler.getScore()));
