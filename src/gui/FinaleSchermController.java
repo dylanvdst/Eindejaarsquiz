@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Observer;
 import domein.Speler;
 import domein.Vraag;
 import java.io.IOException;
@@ -29,7 +30,7 @@ import javafx.scene.text.FontWeight;
  *
  * @author Dylan
  */
-public class FinaleSchermController extends GridPane
+public class FinaleSchermController extends GridPane implements Observer
 {
 
     @FXML
@@ -107,10 +108,12 @@ public class FinaleSchermController extends GridPane
             btnStopTimer.setDisable(true);
             btnSpeler1.setText(speler1.getName());
             btnSpeler2.setText(speler2.getName());
+            
         } catch (IOException ex)
         {
             throw new RuntimeException(ex);
         }
+        this.dc.addObserver(this);
     }
 
     @FXML
@@ -259,6 +262,13 @@ public class FinaleSchermController extends GridPane
         txtA5.setText(vraag.getAntwoord().get(4));
         txtA5.setVisible(false);
         btnEerste.setDisable(true);
+    }
+
+    @Override
+    public void update(int score)
+    {
+        txtSpeler1Score.setText(Integer.toString(speler1.getScore()));
+        txtSpeler2Score.setText(Integer.toString(speler2.getScore()));
     }
     
 }

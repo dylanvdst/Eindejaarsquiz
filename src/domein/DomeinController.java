@@ -377,4 +377,19 @@ public class DomeinController
         this.finaleVragen.add(vraag15);
     }
     
+    public void addObserver(Observer observer)
+    {
+        bieke.addObserver(observer);
+        marianne.addObserver(observer);
+        robin.addObserver(observer);
+        brian.addObserver(observer);
+    }
+    
+    public void removeObserver(Observer observer)
+    {
+        bieke.removeObserver(observer);
+        marianne.addObserver(observer);
+        robin.addObserver(observer);
+        brian.addObserver(observer);
+    }
 }

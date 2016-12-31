@@ -8,19 +8,25 @@ package main;
 import domein.DomeinController;
 import gui.BeginschermController;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Dylan
  */
+/**
+ * TODO OBSERVER PATTERN IN:
+ *      Ronde 1?
+ *      Ronde 2
+ *      Ronde 4
+ * TODO DISABLE PLAYERS WHEN ALREADY CHOSEN IN;
+ *      OVERAL
+ * @author Dylan
+ */
 public class StartUP extends Application
 {
+    
     
     @Override
     public void start(Stage primaryStage)

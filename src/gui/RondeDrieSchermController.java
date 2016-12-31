@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+import domein.Observer;
 import domein.Puzzel;
 import domein.Speler;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import javafx.stage.Stage;
  *
  * @author Dylan
  */
-public class RondeDrieSchermController extends GridPane
+public class RondeDrieSchermController extends GridPane implements Observer
 {
 
     @FXML
@@ -111,6 +112,10 @@ public class RondeDrieSchermController extends GridPane
     private int puzzelId;
     private Puzzel puzzel;
     private Speler speler;
+    private Speler bieke;
+    private Speler brian;
+    private Speler marianne;
+    private Speler robin;
     private List<TextArea> txtLijst = new ArrayList();
     private boolean flag = true;
 
@@ -127,14 +132,18 @@ public class RondeDrieSchermController extends GridPane
         try
         {
             loader.load();
-            txtBieke.setText(dc.getSpeler("Bieke").getName());
-            txtBrian.setText(dc.getSpeler("Brian").getName());
-            txtMarianne.setText(dc.getSpeler("Marianne").getName());
-            txtRobin.setText(dc.getSpeler("Robin").getName());
-            txtBiekeScore.setText(Integer.toString(dc.getSpeler("Bieke").getScore()));
-            txtBrianScore.setText(Integer.toString(dc.getSpeler("Brian").getScore()));
-            txtMarianneScore.setText(Integer.toString(dc.getSpeler("Marianne").getScore()));
-            txtRobinScore.setText(Integer.toString(dc.getSpeler("Robin").getScore()));
+            bieke = dc.getSpeler("Bieke");
+            brian = dc.getSpeler("Brian");
+            marianne = dc.getSpeler("Marianne");
+            robin = dc.getSpeler("Robin");
+            txtBieke.setText(bieke.getName());
+            txtBrian.setText(brian.getName());
+            txtMarianne.setText(marianne.getName());
+            txtRobin.setText(robin.getName());
+            txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+            txtBrianScore.setText(Integer.toString(brian.getScore()));
+            txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+            txtRobinScore.setText(Integer.toString(robin.getScore()));
             btnStop.setDisable(true);
             txtLijst.add(txtS1);
             txtLijst.add(txtS2);
@@ -153,6 +162,7 @@ public class RondeDrieSchermController extends GridPane
         {
             throw new RuntimeException(ex);
         }
+        this.dc.addObserver(this);
     }
 
     @FXML
@@ -162,7 +172,7 @@ public class RondeDrieSchermController extends GridPane
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Bieke");
+        this.speler = bieke;
     }
 
     @FXML
@@ -172,7 +182,7 @@ public class RondeDrieSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Brian");
+        this.speler = brian;
     }
 
     @FXML
@@ -182,7 +192,7 @@ public class RondeDrieSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtRobin.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Marianne");
+        this.speler = marianne;
     }
 
     @FXML
@@ -192,7 +202,7 @@ public class RondeDrieSchermController extends GridPane
         txtBieke.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtBrian.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
         txtMarianne.setFont(Font.font("Verdana", FontWeight.NORMAL, USE_PREF_SIZE));
-        this.speler = this.dc.getSpeler("Robin");
+        this.speler = robin;
     }
 
     @FXML
@@ -398,19 +408,6 @@ public class RondeDrieSchermController extends GridPane
         btnStart.setDisable(true);
         btnStop.setDisable(false);
         speler.timer();
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
     }
 
     @FXML
@@ -419,39 +416,27 @@ public class RondeDrieSchermController extends GridPane
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         speler.stopTimer();
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
     }
 
     private void goedGeantwoord()
     {
         speler.stopTimer();
         this.speler.setScore(this.speler.getScore() + 25);
-        if (speler.getName().equals("Bieke"))
-        {
-            txtBiekeScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Brian"))
-        {
-            txtBrianScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Marianne"))
-        {
-            txtMarianneScore.setText(Integer.toString(speler.getScore()));
-        } else if (speler.getName().equals("Robin"))
-        {
-            txtRobinScore.setText(Integer.toString(speler.getScore()));
-        }
         speler.timer();
+    }
+
+    @Override
+    public void update(int score)
+    {
+        
+            txtBiekeScore.setText(Integer.toString(bieke.getScore()));
+       
+            txtBrianScore.setText(Integer.toString(brian.getScore()));
+        
+            txtMarianneScore.setText(Integer.toString(marianne.getScore()));
+        
+            txtRobinScore.setText(Integer.toString(robin.getScore()));
+        
     }
 
 }
